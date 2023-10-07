@@ -6,8 +6,11 @@ import br.com.alura.loja.dao.PedidoDao;
 import br.com.alura.loja.dao.ProdutoDao;
 import br.com.alura.loja.modelo.*;
 import br.com.alura.loja.util.JPAUtil;
+import br.com.alura.loja.vo.RelatorioVendasVo;
+
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class CadastroPedido {
     public static void main(String[] args) {
@@ -29,6 +32,12 @@ public class CadastroPedido {
         pedidoDao.cadastrar(pedido);
 
         em.getTransaction().commit();
+
+        BigDecimal totalVendido = pedidoDao.valorTotalVendido();
+        System.out.println("VALOR TOTAL: "+ totalVendido);
+
+        List<RelatorioVendasVo> relatorio = pedidoDao.relatorioVendas();
+        relatorio.forEach(System.out::println);
 
     }
     public static void popularBancoDeDados() {
